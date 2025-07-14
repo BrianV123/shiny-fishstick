@@ -30,7 +30,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #FFF7E1;
-    font-family: Arial, sans-serif;
+    font-family: 'Proxima Nova', 'Avenir';
 }
 
 .game-wrapper {
@@ -42,7 +42,7 @@ body {
 
 .score-panel {
     display: flex;
-    justify-content: space-between;  /* Space between score and button */
+    justify-content: space-between;  /* Space between elements */
     align-items: center;
     width: 800px;
     padding: 10px;
@@ -51,7 +51,53 @@ body {
     box-shadow: 0 2px 4px rgba(203, 204, 209, 0.3);
 }
 
+.mistake-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mistake-label {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Proxima Nova', 'Avenir';
+    color: #FFF7E1;
+}
+
+.mistake-container {
+    display: flex;
+    gap: 5px;
+}
+
+.mistake-x {
+    width: 25px;
+    height: 25px;
+    background-color: #FFF7E1;
+    border: 2px solid #666;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: transparent; /* Start invisible */
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.mistake-x.filled {
+    color: #F5402C; /* Red X when filled */
+    background-color: #FFE1DD;
+    border-color: #F5402C;
+}
+
 .timer {
+    flex: 0 1 auto;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFF7E1;
+}
+
+.quota {
     flex: 0 1 auto;
     font-size: 24px;
     font-weight: bold;
@@ -75,13 +121,58 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #start-btn:hover {
     background-color: #e6b406;
     transform: scale(1.05);
+}
+
+#start-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Minimalistic Play and Pause Icons */
+.play-icon {
+    width: 0;
+    height: 0;
+    border-left: 12px solid #1A1A1A;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    margin-left: 3px; /* Slight offset to center visually */
+}
+
+.pause-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pause-icon::before,
+.pause-icon::after {
+    content: '';
+    width: 4px;
+    height: 16px;
+    background-color: #1A1A1A;
+}
+
+/* Ensure button content is properly centered */
+#start-btn .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
 }
 
 .score {
@@ -103,12 +194,13 @@ body {
     transform-origin: center;
     cursor: pointer;
     padding: 20px;  /* Add padding for larger click area */
-    margin: -20px;  /* Offset padding to maintain visual size */
-    transition: transform 0.1s ease;  /* Smooth hover effect */
+    transition: opacity 0.3s ease; /* Smooth transition for pause state */
 }
 
-.water-drop:hover {
-    transform: scale(1.1);  /* Slight grow effect on hover */
+/* Visual feedback when drops are disabled (paused) */
+.water-drop[style*="pointer-events: none"] {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .bad-drop {
@@ -120,19 +212,40 @@ body {
 }
 
 .game-title {
-    color: #FFC907;
+    color: #003366;
     font-size: 72px;
-    font-family: 'Luckiest Guy';
+    font-family: 'Proxima Nova', 'Avenir';
+    font-weight: 700;
     margin-top: 0;
     margin-bottom: 5px;  /* reduced from 20px */
     text-align: center;
 }
 
+.game-subtitle {
+    color: #2E9DF7;
+    font-size: 24px;
+    font-family: 'Proxima Nova', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.charity-highlight {
+    color: #1A1A1A;
+}
+
 .game-tagline {
     color: #003366;
     font-size: 18px;
+    font-family: 'Proxima Nova', 'Avenir';
     margin-bottom: 20px;
     text-align: center;
+}
+
+.quota-number {
+    color: #BF6C46;
+    font-weight: bold;
 }
 
 /* Game Over Modal */
@@ -157,6 +270,52 @@ body {
     width: 400px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Difficulty Selection Styles */
+#difficulty-modal .model-content {
+    width: 600px;
+    max-width: 90vw;
+}
+
+.difficulty-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.difficulty-btn {
+    background-color: #FFF7E1;
+    border: 3px solid #003366;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+    font-family: 'Proxima Nova', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+
+.difficulty-btn:hover {
+    background-color: #FFC907;
+    transform: scale(1.05);
+    border-color: #2E9DF7;
+}
+
+.difficulty-btn h3 {
+    color: #003366;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.difficulty-btn p {
+    color: #003366;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4;
+    font-weight: 400;
 }
 
 .model-content h2 {
@@ -262,5 +421,48 @@ body {
     
     #game-container {
         height: 70vh;
+    }
+}
+
+/* Footer Styles */
+.game-footer {
+    margin-top: 30px;
+    padding: 20px;
+    text-align: center;
+    background-color: #003366;
+    border-radius: 8px;
+    width: 800px;
+    box-shadow: 0 2px 4px rgba(203, 204, 209, 0.3);
+}
+
+.game-footer p {
+    margin: 0;
+    font-size: 18px;
+    color: #FFF7E1;
+    font-family: 'Proxima Nova', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+
+.game-footer a {
+    color: #FFC907;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.game-footer a:hover {
+    color: #2E9DF7;
+    text-decoration: underline;
+}
+
+/* Responsive Footer */
+@media (max-width: 850px) {
+    .game-footer {
+        width: 95vw;
+        margin-top: 20px;
+        padding: 15px;
+    }
+    
+    .game-footer p {
+        font-size: 14px;
     }
 }

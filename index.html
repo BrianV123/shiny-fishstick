@@ -6,26 +6,52 @@
     <title>CATCH!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Proxima+Nova:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-wrapper">
         <h1 class="game-title">CATCH!</h1>
-        <p class="game-tagline">Catch the BLUE jerry cans, avoid the dirty ones!</p>
+        <p class="game-subtitle">A <span class="charity-highlight">charity : water</span> game!</p>
+        <p class="game-tagline" id="game-tagline">Catch the BLUE jerry cans, avoid the dirty ones!</p>
         <div class="score-panel">
             <div class="score">Score: <span id="score">0</span></div>
-            <div class="timer">Time: <span id="time">30</span>s</div>
+            <div class="mistake-bar">
+                <span class="mistake-label">Oopsies!</span>
+                <div class="mistake-container">
+                    <div class="mistake-x" id="mistake-1">✗</div>
+                    <div class="mistake-x" id="mistake-2">✗</div>
+                    <div class="mistake-x" id="mistake-3">✗</div>
+                </div>
+            </div>
             <button id="start-btn">Start Game</button>
         </div>
         
         <div id="game-container">
         </div>
         
+        <!-- Difficulty Selection Modal -->
+        <div id="difficulty-modal" class="model">
+            <div class="model-content">
+                <h2>Choose Difficulty</h2>
+                <div class="difficulty-options">
+                    <button class="difficulty-btn" data-difficulty="easy">
+                        <h3>Easy</h3>
+                    </button>
+                    <button class="difficulty-btn" data-difficulty="medium">
+                        <h3>Medium</h3>
+                    </button>
+                    <button class="difficulty-btn" data-difficulty="hard">
+                        <h3>Hard</h3>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
         <!-- Game Over Model -->
         <div id="game-over-model" class="model">
             <div class="model-content">
-                <h2>Game Over!</h2>
+                <h2 id="game-over-title">Game Over!</h2>
                 <p id="final-score-text">Your final score: 0</p>
                 <button id="play-again-btn">Play Again</button>
             </div>
@@ -33,6 +59,16 @@
         
         <!-- Confetti Container -->
         <div id="confetti-container"></div>
+        
+        <!-- Audio Elements -->
+        <audio id="lose-sound" preload="auto">
+            <source src="sound/cartoon-trombone-sound-effect-241387.mp3" type="audio/mpeg">
+        </audio>
+        
+        <!-- Footer -->
+        <footer class="game-footer">
+            <p>Learn more about clean water access at <a href="https://www.charitywater.org/" target="_blank" rel="noopener noreferrer">charity: water</a></p>
+        </footer>
     </div>
     
     <script src="script.js"></script>
