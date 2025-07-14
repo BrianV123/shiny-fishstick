@@ -1,0 +1,266 @@
+/* Charity: water Brand Colors & Fonts
+
+Primary Colors:
+- Yellow:     #FFC907
+- Blue:       #2E9DF7
+
+Secondary Colors:
+- Light Blue: #8BD1CB
+- Green:      #4FCB53
+- Orange:     #FF902A
+- Red:        #F5402C
+- Dark Green: #159A48
+- Pink:       #F16061
+
+Fonts:
+- Proxima Nova
+- Avenir
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #FFF7E1;
+    font-family: Arial, sans-serif;
+}
+
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.score-panel {
+    display: flex;
+    justify-content: space-between;  /* Space between score and button */
+    align-items: center;
+    width: 800px;
+    padding: 10px;
+    background-color: #003366;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(203, 204, 209, 0.3);
+}
+
+.timer {
+    flex: 0 1 auto;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFF7E1;
+}
+
+#game-container {
+    width: 800px;
+    height: 600px;
+    background-color: #CBCCD1;
+    border: 2px solid #003366;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+#start-btn {
+    padding: 8px 16px;
+    background-color: #FFC907;
+    color: #1A1A1A;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#start-btn:hover {
+    background-color: #e6b406;
+    transform: scale(1.05);
+}
+
+.score {
+    flex: 0 1 auto;  /* Don't grow, can shrink, auto basis */
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFF7E1;
+}
+
+.water-drop {
+    position: absolute;
+    width: 80px;  /* increased from 60px */
+    height: 80px; /* increased from 60px */
+    background-image: url('img/jerry_can_blue.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: dropFall linear forwards;
+    transform-origin: center;
+    cursor: pointer;
+    padding: 20px;  /* Add padding for larger click area */
+    margin: -20px;  /* Offset padding to maintain visual size */
+    transition: transform 0.1s ease;  /* Smooth hover effect */
+}
+
+.water-drop:hover {
+    transform: scale(1.1);  /* Slight grow effect on hover */
+}
+
+.bad-drop {
+    background-image: url('img/jerry_can_brown.png');
+}
+
+.bad-drop:hover {
+    transform: scale(1.1);
+}
+
+.game-title {
+    color: #FFC907;
+    font-size: 72px;
+    font-family: 'Luckiest Guy';
+    margin-top: 0;
+    margin-bottom: 5px;  /* reduced from 20px */
+    text-align: center;
+}
+
+.game-tagline {
+    color: #003366;
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Game Over Modal */
+.model {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.model-content {
+    background-color: #FFF7E1;
+    margin: 15% auto;
+    padding: 30px;
+    border: 3px solid #003366;
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.model-content h2 {
+    color: #003366;
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.model-content p {
+    color: #003366;
+    font-size: 24px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+#play-again-btn {
+    padding: 12px 24px;
+    background-color: #FFC907;
+    color: #1A1A1A;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+#play-again-btn:hover {
+    background-color: #e6b406;
+    transform: scale(1.05);
+}
+
+/* Confetti Animation */
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: confettiFall 2s ease-out forwards;
+    left: 50%;
+    top: 50%;
+    transform-origin: center;
+}
+
+.confetti.square {
+    background-color: #FFC907;
+}
+
+.confetti.circle {
+    background-color: #003366;
+    border-radius: 50%;
+}
+
+.confetti.triangle {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #77A8BB;
+    background-color: transparent;
+}
+
+.confetti.rectangle {
+    width: 15px;
+    height: 5px;
+    background-color: #FED8C1;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--dx), var(--dy)) rotate(720deg) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes dropFall {
+    from {
+        transform: translateY(-80px);
+    }
+    to {
+        transform: translateY(620px);
+    }
+}
+
+@media (max-width: 850px) {
+    .game-wrapper, .score-panel, #game-container {
+        width: 95vw;
+    }
+    
+    #game-container {
+        height: 70vh;
+    }
+}

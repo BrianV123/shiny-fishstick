@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATCH!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <h1 class="game-title">CATCH!</h1>
+        <p class="game-tagline">Catch the BLUE jerry cans, avoid the dirty ones!</p>
+        <div class="score-panel">
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="timer">Time: <span id="time">30</span>s</div>
+            <button id="start-btn">Start Game</button>
+        </div>
+        
+        <div id="game-container">
+        </div>
+        
+        <!-- Game Over Model -->
+        <div id="game-over-model" class="model">
+            <div class="model-content">
+                <h2>Game Over!</h2>
+                <p id="final-score-text">Your final score: 0</p>
+                <button id="play-again-btn">Play Again</button>
+            </div>
+        </div>
+        
+        <!-- Confetti Container -->
+        <div id="confetti-container"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
